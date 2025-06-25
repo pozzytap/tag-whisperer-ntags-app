@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,6 +9,7 @@ import TagDetection from '@/components/TagDetection';
 import TagConfiguration from '@/components/TagConfiguration';
 import SecuritySettings from '@/components/SecuritySettings';
 import URLMirror from '@/components/URLMirror';
+import AdvancedNTAG424Config from '@/components/AdvancedNTAG424Config';
 
 const Index = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -52,7 +52,7 @@ const Index = () => {
             </div>
             <h1 className="text-4xl font-bold text-white">NFC Tag Programmer</h1>
           </div>
-          <p className="text-blue-200 text-lg">Configure and program NXP NTAG424 NFC tags</p>
+          <p className="text-blue-200 text-lg">Configure and program NXP NTAG424 NFC tags with SUN & SDM</p>
         </div>
 
         {/* Status Bar */}
@@ -86,21 +86,25 @@ const Index = () => {
           <Alert className="mb-6 bg-red-900 border-red-700">
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription className="text-red-200">
-              NFC is not supported in this browser. Please use a compatible mobile browser or enable NFC in your browser settings.
+              NFC is not supported in this browser. Please use Chrome on Android for full NFC functionality.
             </AlertDescription>
           </Alert>
         )}
 
         {/* Main Interface */}
         <Tabs defaultValue="detection" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 bg-slate-800 border-slate-700">
+          <TabsList className="grid w-full grid-cols-5 bg-slate-800 border-slate-700">
             <TabsTrigger value="detection" className="flex items-center gap-2">
               <Zap className="h-4 w-4" />
               Detection
             </TabsTrigger>
             <TabsTrigger value="config" className="flex items-center gap-2">
               <Settings className="h-4 w-4" />
-              Configuration
+              Basic Config
+            </TabsTrigger>
+            <TabsTrigger value="advanced" className="flex items-center gap-2">
+              <Shield className="h-4 w-4" />
+              SUN & SDM
             </TabsTrigger>
             <TabsTrigger value="security" className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
@@ -127,6 +131,13 @@ const Index = () => {
             />
           </TabsContent>
 
+          <TabsContent value="advanced" className="space-y-6">
+            <AdvancedNTAG424Config 
+              tagInfo={tagInfo}
+              isConnected={isConnected}
+            />
+          </TabsContent>
+
           <TabsContent value="security" className="space-y-6">
             <SecuritySettings 
               tagInfo={tagInfo}
@@ -145,7 +156,7 @@ const Index = () => {
         {/* Footer */}
         <div className="mt-12 text-center text-slate-400">
           <p className="text-sm">
-            Built for NXP NTAG424 DNA • Secure NFC Programming Interface
+            Built for NXP NTAG424 DNA • Advanced SUN & SDM Programming • Android App Ready
           </p>
         </div>
       </div>
